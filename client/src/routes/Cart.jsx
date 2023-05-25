@@ -76,7 +76,8 @@ export default function Cart() {
             setIsBuying(false)
             if(response.data?.status === "deleted") {
               alert("Certain item(s) inside cart have been deleted, cart will be refreshed")
-              window.location.reload()
+              setIsSecondPageOpened(false)
+              setIsLoading(true)
               return
             }
             else if(response.data?.status === "exceeded") {
@@ -113,7 +114,8 @@ export default function Cart() {
             setIsBuying(false)
             if(response.data?.status === "deleted") {
               alert("Certain item(s) inside cart have been deleted, cart will be refreshed")
-              window.location.reload()
+              setIsSecondPageOpened(false)
+              setIsLoading(true)
               return
             }
             else if(response.data?.status === "exceeded") {
