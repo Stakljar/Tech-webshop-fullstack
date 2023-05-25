@@ -10,7 +10,7 @@ export default function NewItem() {
   const { user, setUser } = useContext(AuthContext)
   const navigate = useNavigate()
   const location = useLocation()
-  const refreshIntercept = useRefreshIntercept()
+  const interceptedInstance = useRefreshIntercept()
   const fileReader = new FileReader()
   const [productImage, setProductImage] = useState("")
   const [productName, setProductName] = useState("")
@@ -145,7 +145,7 @@ export default function NewItem() {
         formData.append("quantity", productQuantity);
         formData.append("specs", JSON.stringify(getSpecsState()))
         try {
-          await refreshIntercept.post("/server/db_queries/product_insert.php", formData, {
+          await interceptedInstance.post("/server/db_queries/product_insert.php", formData, {
             signal: abortController.signal,
             headers: {
               "Content-Type": "multipart/form-data",

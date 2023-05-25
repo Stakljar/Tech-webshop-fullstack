@@ -10,7 +10,7 @@ export default function ModifyShopItem(props) {
   const { user, setUser } = useContext(AuthContext)
   const navigate = useNavigate()
   const location = useLocation()
-  const refreshIntercept = useRefreshIntercept()
+  const interceptedInstance = useRefreshIntercept()
   const [quantity, setQuantity] = useState(props.quantity)
   const [price, setPrice] = useState(props.price)
   const [didChangeHappen, setDidChangeHappen] = useState(false)
@@ -32,7 +32,7 @@ export default function ModifyShopItem(props) {
           productId: props.id,
         }
         try {
-          await refreshIntercept.post("/server/db_queries/delete_product.php", JSON.stringify(data), {
+          await interceptedInstance.post("/server/db_queries/delete_product.php", JSON.stringify(data), {
             signal: abortController.signal,
             headers: {
               "Authorization": "Bearer " + user.accessToken
@@ -76,7 +76,7 @@ export default function ModifyShopItem(props) {
       }
       const updateProduct = async () => {
         try {
-          await refreshIntercept.post("/server/db_queries/update_product.php", JSON.stringify(data), {
+          await interceptedInstance.post("/server/db_queries/update_product.php", JSON.stringify(data), {
             signal: abortController.signal,
             headers: {
               "Authorization": "Bearer " + user.accessToken
