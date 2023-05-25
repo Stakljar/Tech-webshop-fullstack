@@ -108,7 +108,8 @@ export default function ShopItemDetails() {
             </div>
             <div>
               <h4>Specifications:</h4>
-              {specs.map((v) => <div key={v.key} className="shop-item-details__second-section__specs"><span>{v.key + ": "}</span><strong>{v.value}</strong></div>)}
+              {specs.map((v) => <div key={v.key} className="shop-item-details__second-section__specs"><span>{v.key + ": "}</span>
+                <strong>{v.value === true ? "Yes" : v.value === false ? "No" : v.value}</strong></div>)}
             </div>
             <div className="shop-item-details__second-section__item-count">
               <span>Quantity: </span>
