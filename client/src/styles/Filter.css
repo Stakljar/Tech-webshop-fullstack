@@ -1,0 +1,42 @@
+.filter-section {
+  margin: 5%;
+}
+
+.filter-section__details {
+  display: flex;
+  margin: 5% 10%;
+  flex-direction: column;
+}
+
+.filter-section__details__item {
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+  gap: 10px;
+  width: fit-content;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.filter-section__details__item>input[type="number"],
+.filter-section__details__item>input[type="number"] {
+  width: 40%;
+}
+
+.filter-section summary {
+  font-size: large;
+}
+
+@media screen and (max-width: 1200px) {
+
+  .filter-section__details__item {
+    white-space: normal;
+  }
+}
+
+@media screen and (max-width: 992px) {
+
+  .filter-section__details__item {
+    margin-bottom: 8%;
+  }
+}

@@ -1,0 +1,76 @@
+#new-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 30px;
+  width: 80%;
+  margin: auto;
+  padding-top: 2%;
+}
+
+#new-item>* {
+  width: 80%;
+  margin-bottom: 2%;
+}
+
+#new-item__image>input {
+  padding: 3%;
+  border-radius: 15px;
+  background-color: var(--image-input-color);
+}
+
+#new-item>div>* {
+  margin-bottom: 2%;
+}
+
+#new-item img {
+  width: 40%;
+  height: 40vh;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.new-item__new-spec>* {
+  margin-right: 2%;
+  margin-bottom: 1%;
+}
+
+@media screen and (max-width: 992px) {
+
+  #new-item {
+    border: none;
+    width: 100%;
+    text-align: center;
+  }
+
+  #new-item>* {
+    width: 90%;
+    margin-bottom: 4%;
+  }
+
+  #new-item>div>* {
+    margin-bottom: 4%;
+  }
+
+  #new-item img {
+    width: 80%;
+    height: 50vh;
+    border-radius: 10px;
+    border: 1px solid black;
+  }
+
+  #new-item select,
+  #new-item input:not(.new-item__new-spec__checkbox-label):not(.quantity-input__input):not([type="checkbox"]) {
+    width: 80%;
+  }
+
+  .new-item__new-spec {
+    padding-bottom: 5%;
+  }
+
+  .new-item__new-spec__checkbox-label {
+    width: 40%;
+    margin-right: 10%;
+  }
+}

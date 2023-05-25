@@ -1,0 +1,23 @@
+.purchase-history-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+.purchase-history-item>* {
+  width: 25%;
+}
+
+@media screen and (max-width: 992px) {
+  .purchase-history-item {
+    flex-direction: column;
+  }
+
+  .purchase-history-item>* {
+    width: 100%;
+  }
+}

@@ -1,0 +1,145 @@
+#optionbar {
+  display: flex;
+  background-color: var(--header-footer-color);
+  padding-top: 1%;
+  padding-bottom: 1%;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#optionbar>nav>button,
+#optionbar>nav>a {
+  white-space: nowrap;
+}
+
+#optionbar>h1 {
+  margin-left: 3%;
+  font-variant: normal;
+  color: white;
+  -webkit-text-stroke: 2px black;
+}
+
+#optionbar>h1:hover {
+  cursor: pointer;
+}
+
+#optionbar>nav {
+  margin-right: 5%;
+  display: flex;
+  justify-content: space-around;
+  gap: 40px;
+}
+
+#optionbar>nav>select {
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.optionbar__profile__options {
+  margin: 0;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 1;
+  list-style-type: none;
+}
+
+.optionbar__profile__options>li {
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.optionbar__profile__options>li:hover {
+  background-color: var(--profile-options-item-hover-color);
+  color: white;
+  cursor: pointer;
+}
+
+
+.cart-button {
+  background-color: green;
+  color: white;
+}
+
+.cart-button:hover {
+  background-color: var(--cart-button-hover-color);
+  color: white;
+}
+
+main {
+  padding: 3%;
+}
+
+footer {
+  clear: left;
+  background-color: var(--header-footer-color);
+  width: 100%;
+  height: 20vh;
+}
+
+#password_change {
+  width: 30%;
+  height: 50%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8%;
+}
+
+#password_change>* {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#password_change>div:not(:last-of-type)>* {
+  width: 100%;
+}
+
+#password_change>div:not(:last-of-type)>input {
+  margin-top: 2%;
+}
+
+#password_change>div:not(:last-of-type)>span {
+  display: block;
+}
+
+#password_change>div:last-of-type {
+  display: flex;
+  justify-content: center;
+  gap: 30%;
+}
+
+#password_change>h3 {
+  text-align: center;
+}
+
+@media screen and (max-width: 922px) {
+
+  #optionbar {
+    flex-direction: column;
+  }
+
+  #optionbar>h1 {
+    margin-left: 0;
+  }
+
+  #optionbar>nav {
+    margin-right: 0;
+    display: flex;
+    width: 20%;
+    justify-content: space-around;
+    margin-bottom: 5%;
+  }
+
+  #password_change {
+    width: 50%;
+  }
+
+  main {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+}

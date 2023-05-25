@@ -1,0 +1,152 @@
+#cart {
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 1%;
+}
+
+#cart-items>div {
+  margin-bottom: 3%;
+}
+
+#cart__buttons,
+.cart__submit-recipient-data {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#cart__buttons>button,
+.cart__submit-recipient-data>button {
+  padding: 15px 15px;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#cart__empty {
+  text-align: center;
+  margin: auto;
+}
+
+#cart form {
+  width: 50%;
+  margin: auto;
+}
+
+#cart__recipient-data {
+  display: grid;
+  grid-template-areas: "one two" "three none" "four none" "five five" "six seven" "eight eight";
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  row-gap: 5%;
+  column-gap: 10%;
+  border-radius: 25px;
+  border: 1px solid black;
+  padding: 7%;
+}
+
+#cart__recipient-data>div>* {
+  width: 100%;
+}
+
+#cart__recipient-data>div:nth-of-type(5)>* {
+  width: 70%;
+}
+
+#cart__recipient-data>div:nth-of-type(7)>* {
+  width: 30%;
+}
+
+#cart__recipient-data>div:nth-of-type(8)>* {
+  width: 50%;
+}
+
+#cart__recipient-data>div>input {
+  margin-top: 5px;
+}
+
+#cart__recipient-data> :nth-of-type(1) {
+  grid-area: one;
+}
+
+#cart__recipient-data> :nth-of-type(2) {
+  grid-area: two;
+}
+
+#cart__recipient-data> :nth-of-type(3) {
+  grid-area: three;
+}
+
+#cart__recipient-data> :nth-of-type(4) {
+  grid-area: four;
+}
+
+#cart__recipient-data> :nth-of-type(5) {
+  grid-area: five;
+}
+
+#cart__recipient-data> :nth-of-type(6) {
+  grid-area: six;
+}
+
+#cart__recipient-data>:nth-of-type(7) {
+  grid-area: seven;
+}
+
+#cart__recipient-data> :nth-of-type(8) {
+  grid-area: eight;
+}
+
+@media screen and (max-width: 992px) {
+
+  #cart-items>div {
+    margin-bottom: 40px;
+  }
+
+  #cart form {
+    width: 100%
+  }
+
+  #cart__recipient-data {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  #cart__recipient-data>div>* {
+    width: 100%;
+  }
+
+  #cart__recipient-data>div:nth-of-type(1)>* {
+    width: 70%;
+  }
+
+  #cart__recipient-data>div:nth-of-type(2)>* {
+    width: 70%;
+  }
+
+  #cart__recipient-data>div:nth-of-type(3)>* {
+    width: 80%;
+  }
+
+  #cart__recipient-data>div:nth-of-type(4)>* {
+    width: 70%;
+  }
+
+  #cart__recipient-data>div:nth-of-type(5)>* {
+    width: 90%;
+  }
+
+  #cart__recipient-data>div:nth-of-type(6)>* {
+    width: 70%;
+  }
+
+  #cart__recipient-data>div:nth-of-type(7)>* {
+    width: 20%;
+  }
+
+  #cart__recipient-data>div:nth-of-type(8)>* {
+    width: 90%;
+  }
+}

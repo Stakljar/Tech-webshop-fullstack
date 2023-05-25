@@ -1,0 +1,11 @@
+.error {
+    padding-left: 2%;
+}
+
+.error>h1 {
+    font-size: 5rem;
+}
+
+.error>span {
+    font-size: 2rem;
+}

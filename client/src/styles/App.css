@@ -1,0 +1,67 @@
+button,
+input::file-selector-button {
+  padding: 10px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 1em;
+}
+
+button:hover,
+input::file-selector-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+}
+
+input:not([type="check"]):not([type="file"]),
+select {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 6px;
+  font-size: medium;
+}
+
+input[type="checkbox"] {
+  accent-color: black;
+}
+
+.App {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+#cookies {
+  border: 1px solid black;
+  border-radius: 15px;
+  width: 40%;
+  height: fit-content;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  box-shadow: gray 0px 0px 10px 2px;
+}
+
+#cookies>span {
+  font-size: large;
+}
+
+@media screen and (max-width: 992px) {
+
+  #cookies {
+    padding: 10px;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

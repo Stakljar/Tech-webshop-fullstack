@@ -1,0 +1,40 @@
+#authentication {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+#authentication form {
+  padding: 3%;
+  width: 20%;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 15px;
+}
+
+#authentication form>* {
+  margin-top: 5%;
+}
+
+#authentication form>button {
+  margin-top: 15%;
+  margin-bottom: 5%;
+}
+
+.authentication__error-text {
+  text-align: center;
+}
+
+@media screen and (max-width: 992px) {
+  #authentication form {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #authentication form {
+    width: 90%;
+  }
+}
