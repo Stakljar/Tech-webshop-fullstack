@@ -19,12 +19,17 @@
     $connection = getDBConnection();
     $result = NULL;
     if($data["searchType"] === "filter"){
-        $name = "%".$data["name"]."%";
+        $nameParts = preg_split("/\s+/", $data["name"]);
+        $conditions = array();
+        foreach($nameParts as $value){
+            $conditions[] = "product_name LIKE '%".$value."%'";
+        }
+        $conditions = implode(" AND ", $conditions);
         $types = implode("','",(array) $data["filterData"]["components"]);
         $brands = implode("','", (array) $data["filterData"]["brands"]);
-        $statement = $connection->prepare("SELECT * FROM $product_table_name WHERE product_name LIKE ? AND price BETWEEN ? AND ? 
+        $statement = $connection->prepare("SELECT * FROM $product_table_name WHERE ".$conditions." AND price BETWEEN ? AND ? 
             AND product_type IN ('".$types."') AND brand IN ('".$brands."') LIMIT 28");
-        $statement->bind_param("sdd", $name, $data["filterData"]["bottomPrice"], $data["filterData"]["topPrice"]);
+        $statement->bind_param("dd", $data["filterData"]["bottomPrice"], $data["filterData"]["topPrice"]);
         $statement->execute();
         $result = $statement->get_result();
         $statement->close();
@@ -34,12 +39,14 @@
         $result = $connection->query("SELECT * FROM $product_table_name WHERE id IN ('".$ids."')");
     }
     else{
-        $name = "%".$data["name"]."%";
-        $statement = $connection->prepare("SELECT * FROM $product_table_name WHERE product_name LIKE ? LIMIT 28");
-        $statement->bind_param("s", $name);
-        $statement->execute();
-        $result = $statement->get_result();
-        $statement->close();
+        $nameParts = preg_split("/\s+/", $data["name"]);
+        $conditions = array();
+        foreach($nameParts as $value){
+            $conditions[] = "product_name LIKE '%".$value."%'";
+        }
+        $conditions = implode(" AND ", $conditions);
+        $result = $connection->query("SELECT * FROM $product_table_name WHERE ".$conditions." LIMIT 28");
+
     }
     $result_array = array();
     while($row = $result->fetch_assoc()){

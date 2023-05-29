@@ -28,9 +28,9 @@
             </form>";
         }
         if(isset($_POST["confirm-security-password"])){
-            if(password_verify($_POST["security-password"], file_get_contents("resources/security-password-hash.txt"))){
+            if(password_verify($_POST["security-password"], file_get_contents("../resources/security-password-hash.txt"))){
                 $_SESSION["authorized"] = true;
-                header("Location: http://localhost:3000/server/employee_insert.php");
+                header("Location: http://localhost:3000/server/db_queries/employee_insert.php");
             }
             else{
                 echo "Invalid security password";
@@ -76,7 +76,7 @@
                 }
             }
             else{
-                echo "Do not leave any input field blank";
+                echo "Do not leave any input fields blank";
             }
         }
     ?>
