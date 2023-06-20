@@ -46,7 +46,6 @@
         }
         $conditions = implode(" AND ", $conditions);
         $result = $connection->query("SELECT * FROM $product_table_name WHERE ".$conditions." LIMIT 28");
-
     }
     $result_array = array();
     while($row = $result->fetch_assoc()){
