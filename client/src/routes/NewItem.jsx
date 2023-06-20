@@ -20,8 +20,8 @@ export default function NewItem() {
   const [productQuantity, setProductQuantity] = useState(1)
   const [isAddingProductLoading, setIsAddingProductLoading] = useState(false)
 
-  const [desktopComputerSpecs, setDesktopComputerSpecs] = useState({ CPU: "", GPU: "", RAM: "", Motherboard: "", Storage: "", Cooling: "" })
-  const [laptopSpecs, setLaptopSpecs] = useState({ CPU: "", GPU: "", RAM: "", Motherboard: "", Storage: "", Cooling: "", Resolution: "", "Refresh rate (Hz)": "" })
+  const [desktopComputerSpecs, setDesktopComputerSpecs] = useState({ CPU: "", GPU: "", RAM: "", Motherboard: "", Storage: "", PSU: "" })
+  const [laptopSpecs, setLaptopSpecs] = useState({ CPU: "", GPU: "", RAM: "", Motherboard: "", Storage: "", Resolution: "", "Refresh rate (Hz)": "" })
   const [monitorSpecs, setMonitorSpecs] = useState({ Resolution: "", "Refresh rate (Hz)": "" })
   const [headphonesSpecs, setHeadphonesSpecs] = useState({ Wireless: false })
   const [mouseSpecs, setMouseSpecs] = useState({ Wireless: false, "Pooling rate (Hz)": "", DPI: "" })
@@ -29,8 +29,8 @@ export default function NewItem() {
   const [mousepadSpecs, setMousepadSpecs] = useState({ Size: "" })
 
   function clearAllSpecs() {
-    setDesktopComputerSpecs({ CPU: "", GPU: "", RAM: "", Motherboard: "", Storage: "", Cooling: "" })
-    setLaptopSpecs({ CPU: "", GPU: "", RAM: "", Motherboard: "", Storage: "", Cooling: "", Resolution: "", "Refresh rate (Hz)": "" })
+    setDesktopComputerSpecs({ CPU: "", GPU: "", RAM: "", Motherboard: "", Storage: "", PSU: "" })
+    setLaptopSpecs({ CPU: "", GPU: "", RAM: "", Motherboard: "", Storage: "", Resolution: "", "Refresh rate (Hz)": "" })
     setMonitorSpecs({ Resolution: "", "Refresh rate (Hz)": "" })
     setHeadphonesSpecs({ Wireless: false })
     setMouseSpecs({ Wireless: false, "Pooling rate (Hz)": "", DPI: "" })
@@ -92,7 +92,7 @@ export default function NewItem() {
         { key: "RAM", inputType: "text" },
         { key: "Motherboard", inputType: "text" },
         { key: "Storage", inputType: "text" },
-        { key: "Cooling", inputType: "text" }
+        { key: "PSU", inputType: "text" }
       ]
     }
     else if (productType === "Laptop") {
@@ -102,7 +102,6 @@ export default function NewItem() {
         { key: "RAM", inputType: "text" },
         { key: "Motherboard", inputType: "text" },
         { key: "Storage", inputType: "text" },
-        { key: "Cooling", inputType: "text" },
         { key: "Resolution", inputType: "text" },
         { key: "Refresh rate (Hz)", inputType: "number" }
       ]
@@ -134,21 +133,12 @@ export default function NewItem() {
     const abortController = new AbortController()
     if (isAddingProductLoading) {
       const postProduct = async () => {
-        let formData = new FormData();
-        formData.append("id", user.id);
-        formData.append("role", user.role);
-        formData.append("image", productImage);
-        formData.append("name", productName);
-        formData.append("type", productType);
-        formData.append("brand", productBrand);
-        formData.append("price", productPrice);
-        formData.append("quantity", productQuantity);
-        formData.append("specs", JSON.stringify(getSpecsState()))
         try {
-          await interceptedInstance.post("/server/db_queries/product_insert.php", formData, {
+          await interceptedInstance.post("/server/db_queries/product_insert.php", JSON.stringify({id: user.id,
+              role: user.role, image: productImage, name: productName, brand: productBrand, type: productType,
+              price: productPrice, quantity: productQuantity, specs: JSON.stringify(getSpecsState())}), {
             signal: abortController.signal,
             headers: {
-              "Content-Type": "multipart/form-data",
               "Authorization": "Bearer " + user.accessToken
             }
           })

@@ -9,13 +9,16 @@
     require "../utils/db_components.php";
     require "../jwt/jwt.php";
 
+    $request = file_get_contents("php://input");
+    $data = json_decode($request, true);
+
     $requestHeaders = apache_request_headers();
     list(, $token) = explode(" ", $requestHeaders["Authorization"]);
-    performValidationProcess($token, $_POST["id"], $_POST["role"]);
+    performValidationProcess($token, $data["id"], $data["role"]);
 
     $image_path;
-    if(!empty($_POST["image"])){
-        list($type, $image_data) = explode(";", $_POST["image"]);
+    if(!empty($data["image"])){
+        list($type, $image_data) = explode(";", $data["image"]);
         list(, $image_data) = explode(",", $image_data);
         $image_data = base64_decode($image_data);
         list(, $type) = explode("image/", $type);
@@ -28,8 +31,8 @@
 
     $connection = getDBConnection();
     $statement = $connection->prepare("INSERT INTO $product_table_name VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $statement->bind_param("sssdsssi", uniqid(), $_POST["name"],
-     $image_path, $_POST["price"], $_POST["type"], $_POST["brand"], $_POST["specs"], $_POST["quantity"]);
+    $statement->bind_param("sssdsssi", uniqid(), $data["name"],
+     $image_path, $data["price"], $data["type"], $data["brand"], $data["specs"], $data["quantity"]);
     $statement->execute();
     $statement->close();
     $connection->close();

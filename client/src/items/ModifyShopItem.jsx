@@ -11,7 +11,7 @@ export default function ModifyShopItem(props) {
   const navigate = useNavigate()
   const location = useLocation()
   const interceptedInstance = useRefreshIntercept()
-  const [quantity, setQuantity] = useState(props.quantity)
+  const [quantity, setQuantity] = useState(Number(props.quantity))
   const [price, setPrice] = useState(props.price)
   const [didChangeHappen, setDidChangeHappen] = useState(false)
   const [isDeleteLoading, setIsDeleteLoading] = useState(false)
