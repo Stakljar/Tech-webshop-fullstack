@@ -4,8 +4,3 @@ CREATE TABLE IF NOT EXISTS employee(
     
     CONSTRAINT prkey_employee_username PRIMARY KEY(username)
 )
-
-INSERT INTO employee VALUES("GG", "123")
-INSERT INTO employee VALUES("BG", "123")
-
-CREATE DATABASE mail_delivery
