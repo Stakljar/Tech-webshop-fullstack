@@ -45,8 +45,8 @@
         $connection->commit();
     }
     catch(mysqli_sql_exception $e){
-        $statement->close();
         $connection->rollback();
+        $statement->close();
         if($e->getCode() === 1452){
             $response["status"] = "deleted";
             echo json_encode($response);
