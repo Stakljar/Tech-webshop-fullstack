@@ -5,5 +5,5 @@
     }
     
     unset($_COOKIE["refresh_token"]);
-    setcookie("refresh_token", null);
+    setcookie("refresh_token", "");
 ?>

@@ -19,7 +19,9 @@
     $connection = getDBConnection();
     $statement = $connection->prepare("DELETE FROM $product_table_name WHERE id = ?");
     $statement->bind_param("s", $data["productId"]);
-    $statement->execute();
+    if($statement->execute() === false) {
+        http_response_code(500);
+    }
     $statement->close();
     $connection->close();
 ?>

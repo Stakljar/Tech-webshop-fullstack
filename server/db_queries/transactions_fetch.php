@@ -26,8 +26,14 @@
         LEFT JOIN $product_table_name ON $transaction_table_name.product_id = $product_table_name.id WHERE user_username = '".$data["id"]."'
         AND transaction_status = 'delivered' ORDER BY transaction_status DESC");
     }
+    if($result === false){
+        http_response_code(500); 
+    }
     $result_array = array();
     while($row = $result->fetch_assoc()){
+        if($row === false){
+            http_response_code(500); 
+        }
         $result_array[] = $row;
     }
     $result->free_result();

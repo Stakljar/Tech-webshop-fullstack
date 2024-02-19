@@ -4,7 +4,7 @@ export default function PurchaseHistoryItem(props) {
   return (
     <>
       <div className="purchase-history-item">
-        <h3>Name: {props.name}</h3>
+        <h3>Name: {props.name || "*Deleted product*"}</h3>
         <div>
           <span>Price: </span><strong>{props.price * props.quantity}$</strong>
         </div>

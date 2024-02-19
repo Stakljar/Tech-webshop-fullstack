@@ -25,13 +25,20 @@
     $statement->bind_param("s", $data["username"]);
     $statement->execute();
     $result = $statement->get_result();
-    if(password_verify($data["password"], $result->fetch_assoc()["user_password"])){
+    if($result === false){
+        http_response_code(500);
+    }
+    $row = $result->fetch_assoc();
+    if($row === false){
+        http_response_code(500);
+    }
+    if(password_verify($data["password"], $row !== null ? $row["user_password"] : "")){
         $response["status"] = "valid";
         $response["access_token"] = generateAccessJWT($data["username"], $data["role"]);
         $response["id"] = $data["username"];
         $response["role"] = $data["role"];
         if($data["cookieAgreement"] === "accepted"){
-            setcookie("refresh_token", generateRefreshJWT($data["username"], $data["role"]));
+            setcookie("refresh_token", generateRefreshJWT($data["username"], $data["role"]), httponly: true);
         }
     }
     else{

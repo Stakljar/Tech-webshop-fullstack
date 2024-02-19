@@ -19,15 +19,21 @@
     $connection = getDBConnection();
     if($data["role"] === "user"){
         $statement = $connection->prepare("UPDATE $user_table_name SET user_password = ? WHERE username = ?");
-        $statement->bind_param("ss", password_hash($data["password"], PASSWORD_BCRYPT), $data["id"]);
-        $statement->execute();
+        $password = password_hash($data["password"], PASSWORD_BCRYPT);
+        $statement->bind_param("ss", $password, $data["id"]);
+        if($statement->execute() === false) {
+            http_response_code(500);
+        }
         $statement->close();
         $connection->close();
     }
     else if($data["role"] === "employee"){
         $statement = $connection->prepare("UPDATE $employee_table_name SET user_password = ? WHERE username = ?");
-        $statement->bind_param("ss", password_hash($data["password"], PASSWORD_BCRYPT), $data["id"]);
-        $statement->execute();
+        $password = password_hash($data["password"], PASSWORD_BCRYPT);
+        $statement->bind_param("ss", $password, $data["id"]);
+        if($statement->execute() === false) {
+            http_response_code(500);
+        }
         $statement->close();
         $connection->close();
     }

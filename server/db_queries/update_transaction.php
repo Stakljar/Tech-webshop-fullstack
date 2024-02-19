@@ -20,7 +20,9 @@
     $connection = getDBConnection();
     $statement = $connection->prepare("UPDATE $transaction_table_name SET transaction_status = ? WHERE id = ?");
     $statement->bind_param("ss", $data["updatedStatus"], $data["transactionId"]);
-    $statement->execute();
+    if($statement->execute() === false) {
+        http_response_code(500);
+    }
     $statement->close();
     $connection->close();
 

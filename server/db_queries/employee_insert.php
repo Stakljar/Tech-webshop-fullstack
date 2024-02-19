@@ -10,7 +10,7 @@
     <?php
         session_start();
         $isAuthorized = false;
-        if($_SESSION["authorized"]){
+        if(isset($_SESSION["authorized"]) && $_SESSION["authorized"] = true){
             $isAuthorized = true;
         }
         if(!$isAuthorized){
@@ -62,18 +62,17 @@
                 require_once "../utils/db_components.php";
                 $connection = getDBConnection();
                 $statement = $connection->prepare("INSERT INTO $employee_table_name VALUES(?, ?)");
-                $statement->bind_param("ss", $_POST["employee-username"], password_hash($_POST["employee-password"], PASSWORD_BCRYPT));
+                $password = password_hash($_POST["employee-password"], PASSWORD_BCRYPT);
+                $statement->bind_param("ss", $_POST["employee-username"], $password);
                 try{
                     $statement->execute();
-                    $statement->close();
-                    $connection->close();
                     echo "Employee added";
                 }
                 catch(mysqli_sql_exception $e){
                     echo $e->getMessage();
-                    $statement->close();
-                    $connection->close();
                 }
+                $statement->close();
+                $connection->close();
             }
             else{
                 echo "Do not leave any input fields blank";

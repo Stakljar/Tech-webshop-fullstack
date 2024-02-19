@@ -15,7 +15,8 @@
     try{
         $connection = getDBConnection();
         $statement = $connection->prepare("INSERT INTO $user_table_name VALUES (?, ?)");
-        $statement->bind_param("ss", $data["username"], password_hash($data["password"], PASSWORD_BCRYPT));
+        $password = password_hash($data["password"], PASSWORD_BCRYPT);
+        $statement->bind_param("ss", $data["username"], $password);
         $statement->execute();
         $response["status"] = "valid";
         $response["access_token"] = generateAccessJWT($data["username"], "user");
@@ -25,8 +26,6 @@
             setcookie("refresh_token", generateRefreshJWT($data["username"], "user"));
         }
         echo json_encode($response);
-        $statement->close();
-        $connection->close();
     }
     catch(mysqli_sql_exception $e){
         if($e->getCode() === 1062){
@@ -36,7 +35,7 @@
         else{
             http_response_code(500);
         }
-        $statement->close();
-        $connection->close();
     }
+    $statement->close();
+    $connection->close();
 ?>

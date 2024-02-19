@@ -1,7 +1,7 @@
 <?php
     $hostname = "localhost";
     $username = "root";
-    $password = "admin213";
+    $password = "";
     $database = "tech_webshop";
     $port = 3306;
     $socket = "MySQL";

@@ -20,7 +20,9 @@
     $connection = getDBConnection();
     $statement = $connection->prepare("DELETE FROM $transaction_table_name WHERE id = ?");
     $statement->bind_param("s", $data["transactionId"]);
-    $statement->execute();
+    if($statement->execute() === false) {
+        http_response_code(500);
+    }
     $statement->close();
     $connection->close();
 

@@ -8,21 +8,27 @@
     require "../utils/headers.php";
     require "../utils/db_components.php";
     require "../jwt/jwt.php";
+    require "../utils/get_image_encoded_path.php";
 
     $request = file_get_contents("php://input");
     $data = json_decode($request, true);
-
-    function getImageEncodedPath($image_path){
-        list(, $type) = explode(".", $image_path);
-        return "data:image/".$type.";base64,".base64_encode(file_get_contents($image_path));
-    }
 
     $connection = getDBConnection();
     $statement = $connection->prepare("SELECT * FROM $product_table_name WHERE id = ?");
     $statement->bind_param("s", $data["id"]);
     $statement->execute();
     $result = $statement->get_result();
-    $response = $result->fetch_assoc();
+    if($result === false){
+        http_response_code(500);
+    }
+    $row = $result->fetch_assoc();
+    if($row === false){
+        http_response_code(500);
+    }
+    else if($row === null) {
+        http_response_code(404);
+    }
+    $response = $row;
     $result->free_result();
     $response["image_path"] = getImageEncodedPath($response["image_path"]);
     $statement->close();

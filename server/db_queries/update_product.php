@@ -19,7 +19,9 @@
     $connection = getDBConnection();
     $statement = $connection->prepare("UPDATE $product_table_name SET price = ?, current_amount = ? WHERE id = ?");
     $statement->bind_param("dis", $data["price"], $data["quantity"], $data["productId"]);
-    $statement->execute();
+    if($statement->execute() === false) {
+        http_response_code(500);
+    }
     $statement->close();
     $connection->close();
 ?>

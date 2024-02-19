@@ -54,7 +54,7 @@ export default function Authentication(props) {
               withCredentials: localStorage.getItem("cookie_agreement") === "accepted" ? true : false
             })
           setIsLoading(false)
-          if (response.data.status === "valid") {
+          if (response.data?.status === "valid") {
             setUser({ id: response.data.id, role: response.data.role, accessToken: response.data.access_token })
             navigate("/", { replace: true })
           }

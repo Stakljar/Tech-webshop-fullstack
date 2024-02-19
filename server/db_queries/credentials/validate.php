@@ -15,7 +15,7 @@
         $response["role"] = "guest";
         $response["access_token"] = "";
         unset($_COOKIE["refresh_token"]);
-        setcookie("refresh_token", null);
+        setcookie("refresh_token", "");
         echo json_encode($response);
         exit;
     }

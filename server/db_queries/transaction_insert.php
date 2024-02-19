@@ -26,20 +26,23 @@
         $deliveryDate = NULL;
         foreach((array) $data["products"] as $product){
             $statement = $connection->prepare("INSERT INTO $transaction_table_name VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $statement->bind_param("sssssssssssisss", uniqid(), $data["id"], $product["id"], $data["recipientData"]["firstName"],
+            $id = uniqid();
+            $statement->bind_param("sssssssssssisss", $id, $data["id"], $product["id"], $data["recipientData"]["firstName"],
              $data["recipientData"]["lastName"], $data["recipientData"]["email"], $data["recipientData"]["phone"], $data["recipientData"]["address"], 
              $data["recipientData"]["city"], $data["recipientData"]["zip"], $data["recipientData"]["country"], $product["quantity"], $status,
                 $data["orderDate"], $deliveryDate);
-            $statement->execute();
+            if($statement->execute() === false) {
+                http_response_code(500);
+            }
             $statement = $connection->prepare("UPDATE $product_table_name SET current_amount = current_amount - ? WHERE id = ?");
             $statement->bind_param("ss", $product["quantity"], $product["id"]);
-            $statement->execute();
+            if($statement->execute() === false) {
+                http_response_code(500);
+            }
         }
         $connection->commit();
-        $connection->close();
     }
     catch(mysqli_sql_exception $e){
-        $statement->close();
         $connection->rollback();
         if($e->getCode() === 1452){
             $response["status"] = "deleted";
@@ -52,6 +55,7 @@
         else{
             http_response_code(500);
         }
-        $connection->close();
     }
+    $statement->close();
+    $connection->close();
 ?>

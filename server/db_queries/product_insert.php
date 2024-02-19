@@ -15,7 +15,6 @@
     $requestHeaders = apache_request_headers();
     list(, $token) = explode(" ", $requestHeaders["Authorization"]);
     performValidationProcess($token, $data["id"], $data["role"]);
-
     $image_path;
     if(!empty($data["image"])){
         list($type, $image_data) = explode(";", $data["image"]);
@@ -31,9 +30,12 @@
 
     $connection = getDBConnection();
     $statement = $connection->prepare("INSERT INTO $product_table_name VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $statement->bind_param("sssdsssi", uniqid(), $data["name"],
+    $id = uniqid();
+    $statement->bind_param("sssdsssi", $id, $data["name"],
      $image_path, $data["price"], $data["type"], $data["brand"], $data["specs"], $data["quantity"]);
-    $statement->execute();
+    if($statement->execute() === false) {
+        http_response_code(500);
+    }
     $statement->close();
     $connection->close();
 ?>

@@ -7,14 +7,10 @@
     require "../db_conn/connection.php";
     require "../utils/headers.php";
     require "../utils/db_components.php";
+    require "../utils/get_image_encoded_path.php";
 
     $request = file_get_contents("php://input");
     $data = json_decode($request, true);
-    
-    function getImageEncodedPath($image_path){
-        list(, $type) = explode(".", $image_path);
-        return "data:image/".$type.";base64,".base64_encode(file_get_contents($image_path));
-    }
 
     $connection = getDBConnection();
     $result = NULL;
@@ -47,8 +43,14 @@
         $conditions = implode(" AND ", $conditions);
         $result = $connection->query("SELECT * FROM $product_table_name WHERE ".$conditions." LIMIT 28");
     }
+    if($result === false){
+        http_response_code(500);
+    }
     $result_array = array();
     while($row = $result->fetch_assoc()){
+        if($row === false){
+            http_response_code(500); 
+        }
         $row["image_path"] = getImageEncodedPath($row["image_path"]);
         $result_array[] = $row;
     }
