@@ -34,15 +34,18 @@
             if($statement->execute() === false) {
                 http_response_code(500);
             }
+            $statement->close();
             $statement = $connection->prepare("UPDATE $product_table_name SET current_amount = current_amount - ? WHERE id = ?");
             $statement->bind_param("ss", $product["quantity"], $product["id"]);
             if($statement->execute() === false) {
                 http_response_code(500);
             }
+            $statement->close();
         }
         $connection->commit();
     }
     catch(mysqli_sql_exception $e){
+        $statement->close();
         $connection->rollback();
         if($e->getCode() === 1452){
             $response["status"] = "deleted";
@@ -56,6 +59,5 @@
             http_response_code(500);
         }
     }
-    $statement->close();
     $connection->close();
 ?>
