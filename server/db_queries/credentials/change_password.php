@@ -1,6 +1,6 @@
 <?php 
-    if($_SERVER["REQUEST_METHOD"] === "GET"){
-        echo "This file should not be accessed through browser.";
+    if($_SERVER["REQUEST_METHOD"] !== "POST"){
+        echo "POST method required.";
         exit;
     }
     
@@ -17,8 +17,8 @@
     performValidationProcess($token, $data["id"], $data["role"]);
 
     $connection = getDBConnection();
-    if($data["role"] === "user"){
-        $statement = $connection->prepare("UPDATE $user_table_name SET user_password = ? WHERE username = ?");
+    if($data["role"] === "employee"){
+        $statement = $connection->prepare("UPDATE $employee_table_name SET user_password = ? WHERE username = ?");
         $password = password_hash($data["password"], PASSWORD_BCRYPT);
         $statement->bind_param("ss", $password, $data["id"]);
         if($statement->execute() === false) {
@@ -27,8 +27,8 @@
         $statement->close();
         $connection->close();
     }
-    else if($data["role"] === "employee"){
-        $statement = $connection->prepare("UPDATE $employee_table_name SET user_password = ? WHERE username = ?");
+    else{
+        $statement = $connection->prepare("UPDATE $user_table_name SET user_password = ? WHERE username = ?");
         $password = password_hash($data["password"], PASSWORD_BCRYPT);
         $statement->bind_param("ss", $password, $data["id"]);
         if($statement->execute() === false) {

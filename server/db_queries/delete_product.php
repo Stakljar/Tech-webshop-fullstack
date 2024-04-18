@@ -1,6 +1,6 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] === "GET"){
-        echo "This file should not be accessed through browser.";
+    if($_SERVER["REQUEST_METHOD"] !== "POST" && $_SERVER["REQUEST_METHOD"] !== "DELETE"){
+        echo "POST or DELETE method required.";
         exit;
     }
     
@@ -11,6 +11,11 @@
 
     $request = file_get_contents("php://input");
     $data = json_decode($request, true);
+
+    if($data["role"] !== "employee") {
+        http_response_code(403);
+        exit;
+    }
 
     $requestHeaders = apache_request_headers();
     list(, $token) = explode(" ", $requestHeaders["Authorization"]);

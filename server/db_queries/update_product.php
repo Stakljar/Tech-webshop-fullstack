@@ -1,9 +1,9 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] === "GET"){
-        echo "This file should not be accessed through browser.";
+    if($_SERVER["REQUEST_METHOD"] !== "POST" && $_SERVER["REQUEST_METHOD"] !== "PATCH"){
+        echo "POST or PATCH method required.";
         exit;
     }
-    
+
     require "../db_conn/connection.php";
     require "../utils/headers.php";
     require "../utils/db_components.php";
@@ -12,6 +12,11 @@
     $request = file_get_contents("php://input");
     $data = json_decode($request, true);
     
+    if($data["role"] !== "employee") {
+        http_response_code(403);
+        exit;
+    }
+
     $requestHeaders = apache_request_headers();
     list(, $token) = explode(" ", $requestHeaders["Authorization"]);
     performValidationProcess($token, $data["id"], $data["role"]);

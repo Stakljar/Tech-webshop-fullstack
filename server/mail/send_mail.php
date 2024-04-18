@@ -1,9 +1,4 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] === "GET"){
-        echo "This file should not be accessed through browser.";
-        exit;
-    }
-    
     use PHPMailer\PHPMailer\PHPMailer;
 
     require "../phpmailer/src/Exception.php";

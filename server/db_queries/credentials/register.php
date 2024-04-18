@@ -1,6 +1,6 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] === "GET"){
-        echo "This file should not be accessed through browser.";
+    if($_SERVER["REQUEST_METHOD"] !== "POST"){
+        echo "POST method required.";
         exit;
     }
     

@@ -1,9 +1,9 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] === "GET"){
-        echo "This file should not be accessed through browser.";
+    if($_SERVER["REQUEST_METHOD"] !== "POST"){
+        echo "POST method required.";
         exit;
     }
-    
+
     require "../db_conn/connection.php";
     require "../utils/headers.php";
     require "../utils/db_components.php";
@@ -11,16 +11,19 @@
 
     $request = file_get_contents("php://input");
     $data = json_decode($request, true);
-    
+    if($data["role"] !== "user" && $data["role"] !== "guest") {
+        http_response_code(403);
+        exit;
+    }
+
     if($data["requireCredentials"]){
         $requestHeaders = apache_request_headers();
         list(, $token) = explode(" ", $requestHeaders["Authorization"]);
         performValidationProcess($token, $data["id"], $data["role"]);
     }
 
-    $connection = null;
+    $connection = getDBConnection();
     try{
-        $connection = getDBConnection();
         $connection->begin_transaction();
         $status = "pending";
         $deliveryDate = NULL;
@@ -38,7 +41,9 @@
             $statement = $connection->prepare("UPDATE $product_table_name SET current_amount = current_amount - ? WHERE id = ?");
             $statement->bind_param("ss", $product["quantity"], $product["id"]);
             if($statement->execute() === false) {
+                $connection->close();
                 http_response_code(500);
+                exit;
             }
             $statement->close();
         }

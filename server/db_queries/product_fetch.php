@@ -1,9 +1,9 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] === "GET"){
-        echo "This file should not be accessed through browser.";
+    if($_SERVER["REQUEST_METHOD"] !== "POST"){
+        echo "POST method required.";
         exit;
     }
-    
+
     require "../db_conn/connection.php";
     require "../utils/headers.php";
     require "../utils/db_components.php";
@@ -19,14 +19,25 @@
     $statement->execute();
     $result = $statement->get_result();
     if($result === false){
+        $statement->close();
+        $connection->close();
         http_response_code(500);
+        exit;
     }
     $row = $result->fetch_assoc();
     if($row === false){
+        $result->free_result();
+        $statement->close();
+        $connection->close();
         http_response_code(500);
+        exit;
     }
     else if($row === null) {
+        $result->free_result();
+        $statement->close();
+        $connection->close();
         http_response_code(404);
+        exit;
     }
     $response = $row;
     $result->free_result();

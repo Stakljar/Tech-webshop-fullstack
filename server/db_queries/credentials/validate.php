@@ -1,4 +1,9 @@
 <?php
+    if($_SERVER["REQUEST_METHOD"] !== "GET"){
+        echo "GET method required.";
+        exit;
+    }
+
     require "../../utils/headers.php";
     require "../../jwt/jwt.php";
 

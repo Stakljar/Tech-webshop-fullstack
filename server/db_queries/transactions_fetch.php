@@ -1,4 +1,9 @@
 <?php
+    if($_SERVER["REQUEST_METHOD"] !== "POST"){
+        echo "POST method required.";
+        exit;
+    }
+
     require "../db_conn/connection.php";
     require "../utils/headers.php";
     require "../utils/db_components.php";
@@ -27,12 +32,17 @@
         AND transaction_status = 'delivered' ORDER BY transaction_status DESC");
     }
     if($result === false){
-        http_response_code(500); 
+        $connection->close();
+        http_response_code(500);
+        exit;
     }
     $result_array = array();
     while($row = $result->fetch_assoc()){
         if($row === false){
-            http_response_code(500); 
+            $result->free_result();
+            $connection->close();
+            http_response_code(500);
+            exit;
         }
         $result_array[] = $row;
     }

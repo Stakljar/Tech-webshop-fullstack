@@ -1,6 +1,6 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] === "GET"){
-        echo "This file should not be accessed through browser.";
+    if($_SERVER["REQUEST_METHOD"] !== "POST"){
+        echo "POST method required.";
         exit;
     }
     
@@ -12,25 +12,34 @@
     $request = file_get_contents("php://input");
     $data = json_decode($request, true);
 
-    $connection = getDBConnection();
-    if($data["role"] === "user"){
-        $statement = $connection->prepare("SELECT * FROM $user_table_name WHERE username = ?");
+    if($data["role"] !== "user" && $data["role"] !== "employee"){
+        http_response_code(400);
+        exit;
     }
-    else if($data["role"] === "employee"){
+
+    $connection = getDBConnection();
+    if($data["role"] === "employee"){
         $statement = $connection->prepare("SELECT * FROM $employee_table_name WHERE username = ?");
     }
     else{
-        http_response_code(400);
+        $statement = $connection->prepare("SELECT * FROM $user_table_name WHERE username = ?");
     }
     $statement->bind_param("s", $data["username"]);
     $statement->execute();
     $result = $statement->get_result();
     if($result === false){
+        $statement->close();
+        $connection->close();
         http_response_code(500);
+        exit;
     }
     $row = $result->fetch_assoc();
     if($row === false){
+        $result->free_result();
+        $statement->close();
+        $connection->close();
         http_response_code(500);
+        exit;
     }
     if(password_verify($data["password"], $row !== null ? $row["user_password"] : "")){
         $response["status"] = "valid";

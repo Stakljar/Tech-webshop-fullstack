@@ -1,6 +1,6 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] === "GET"){
-        echo "This file should not be accessed through browser.";
+    if($_SERVER["REQUEST_METHOD"] !== "POST"){
+        echo "POST method required.";
         exit;
     }
 
@@ -44,12 +44,17 @@
         $result = $connection->query("SELECT * FROM $product_table_name WHERE ".$conditions." LIMIT 28");
     }
     if($result === false){
+        $connection->close();
         http_response_code(500);
+        exit;
     }
     $result_array = array();
     while($row = $result->fetch_assoc()){
         if($row === false){
-            http_response_code(500); 
+            $result->free_result();
+            $connection->close();
+            http_response_code(500);
+            exit;
         }
         $row["image_path"] = getImageEncodedPath($row["image_path"]);
         $result_array[] = $row;
