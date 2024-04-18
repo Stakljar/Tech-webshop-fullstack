@@ -74,10 +74,10 @@ function App() {
                   <Route path="/register" element={<Authentication role={roles.user} type={authType.registration} />} />
                   <Route path="/employee_login" element={<Authentication role={roles.employee} type={authType.login} />} />
                 </Route>
-                <Route path="/unauthorized" element={<Error title="401" description="Unauthorized" />} />
-                <Route path="/forbidden" element={<Error title="403" description="Forbidden" />} />
-                <Route path="*" element={<Error title="404" description="Not found" />} />
               </Route>
+              <Route path="/unauthorized" element={<Error text="You are unauthorized to view this page." />} />
+              <Route path="/forbidden" element={<Error text="You access to this page is forbidden." />} />
+              <Route path="*" element={<Error text="Page is not found." />} />
             </Routes>
           </BrowserRouter>
           {
