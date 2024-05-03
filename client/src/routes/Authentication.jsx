@@ -37,7 +37,7 @@ export default function Authentication(props) {
           }
         }
         catch (error) {
-          if(error?.code === "ERR_CANCELED"){
+          if(error?.code === "ERR_CANCELED") {
             return
           }
           setIsLoading(false)
