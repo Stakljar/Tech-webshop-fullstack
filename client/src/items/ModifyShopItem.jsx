@@ -18,7 +18,7 @@ export default function ModifyShopItem(props) {
   const [isUpdateLoading, setIsUpdateLoading] = useState(false)
 
   useEffect(() => {
-      if (props.price != price || props.quantity != quantity)
+      if (props.price !== price || props.quantity !== quantity)
         setDidChangeHappen(true)
   }, [quantity, price])
 
