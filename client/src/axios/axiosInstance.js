@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let axiosInstance = axios.create(
+const axiosInstance = axios.create(
   {
     baseURL: "http://localhost:3000",
     contextType: "application/json"

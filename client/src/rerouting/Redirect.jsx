@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react"
 import { AuthContext } from "../App"
 import { Outlet, useNavigate } from "react-router-dom"
-import { roles } from "../utils/Utils"
+import { roles } from "../utils/utils"
 
 export default function Redirect() {
   const { user } = useContext(AuthContext)

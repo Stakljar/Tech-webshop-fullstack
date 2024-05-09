@@ -5,7 +5,7 @@ import Loading from "../util_components/Loading"
 import axiosInstance from "../axios/axiosInstance"
 import { useLocation, useNavigate } from "react-router-dom"
 import { AuthContext, CartCountContext } from "../App"
-import { roles } from "../utils/Utils"
+import { roles } from "../utils/utils"
 import useRefreshIntercept from "../hooks/useRefreshIntercept"
 
 export default function Cart() {

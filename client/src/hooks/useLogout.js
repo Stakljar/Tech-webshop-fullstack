@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react"
 import { AuthContext } from "../App"
 import axiosInstance from "../axios/axiosInstance"
 import { useNavigate } from "react-router-dom"
-import { roles } from "../utils/Utils"
+import { roles } from "../utils/utils"
 
 const useLogout = () => {
   const channel = new BroadcastChannel("logout-channel")

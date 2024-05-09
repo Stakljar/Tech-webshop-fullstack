@@ -5,7 +5,7 @@ import Loading from "../util_components/Loading"
 import useRefreshIntercept from "../hooks/useRefreshIntercept"
 import { useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../App"
-import { roles } from "../utils/Utils"
+import { roles } from "../utils/utils"
 
 export default function Orders() {
   const { user, setUser } = useContext(AuthContext)
