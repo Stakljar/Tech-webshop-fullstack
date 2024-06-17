@@ -76,7 +76,7 @@ function App() {
                 </Route>
               </Route>
               <Route path="/unauthorized" element={<Error text="You are unauthorized to view this page." />} />
-              <Route path="/forbidden" element={<Error text="You access to this page is forbidden." />} />
+              <Route path="/forbidden" element={<Error text="Your access to this page is forbidden." />} />
               <Route path="*" element={<Error text="Page is not found." />} />
             </Routes>
           </BrowserRouter>
