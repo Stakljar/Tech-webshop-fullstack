@@ -1,5 +1,5 @@
 <?php 
-    $secret = "rwjnt851";
+    $secret = "rwjnddwhbgdte8514124351164805404";
 
     $header = json_encode([
         "typ" => "JWT",
