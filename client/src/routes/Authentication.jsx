@@ -16,8 +16,8 @@ export default function Authentication(props) {
   const [invalidInputMesssage, setInvalidInputMesssage] = useState("")
 
   useEffect(() => {
-    const abortController = new AbortController()
     if (isLoading) {
+      const abortController = new AbortController()
       setInvalidInputMesssage("")
       const login = async () => {
         try {
@@ -26,7 +26,7 @@ export default function Authentication(props) {
             {
               signal: abortController.signal,
               withCredentials: localStorage.getItem("cookie_agreement") === "accepted" ? true : false
-          })
+            })
           setIsLoading(false)
           if (response.data?.status === "invalid") {
             setInvalidInputMesssage("Invalid username or password")
@@ -37,7 +37,7 @@ export default function Authentication(props) {
           }
         }
         catch (error) {
-          if(error?.code === "ERR_CANCELED") {
+          if (error?.code === "ERR_CANCELED") {
             return
           }
           setIsLoading(false)
@@ -48,7 +48,7 @@ export default function Authentication(props) {
       const register = async () => {
         try {
           const response = await axiosInstance.post("/server/db_queries/credentials/register.php",
-            JSON.stringify({...credentials, cookieAgreement: localStorage.getItem("cookie_agreement")}),
+            JSON.stringify({ ...credentials, cookieAgreement: localStorage.getItem("cookie_agreement") }),
             {
               signal: abortController.signal,
               withCredentials: localStorage.getItem("cookie_agreement") === "accepted" ? true : false
@@ -63,7 +63,7 @@ export default function Authentication(props) {
           }
         }
         catch (error) {
-          if(error?.code === "ERR_CANCELED") {
+          if (error?.code === "ERR_CANCELED") {
             return
           }
           alert(error)

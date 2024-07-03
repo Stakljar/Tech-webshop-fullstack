@@ -130,13 +130,15 @@ export default function NewItem() {
   }
 
   useEffect(() => {
-    const abortController = new AbortController()
     if (isAddingProductLoading) {
+      const abortController = new AbortController()
       const postProduct = async () => {
         try {
-          await interceptedInstance.post("/server/db_queries/product_insert.php", JSON.stringify({id: user.id,
-              role: user.role, image: productImage, name: productName, brand: productBrand, type: productType,
-              price: productPrice, quantity: productQuantity, specs: JSON.stringify(getSpecsState())}), {
+          await interceptedInstance.post("/server/db_queries/product_insert.php", JSON.stringify({
+            id: user.id,
+            role: user.role, image: productImage, name: productName, brand: productBrand, type: productType,
+            price: productPrice, quantity: productQuantity, specs: JSON.stringify(getSpecsState())
+          }), {
             signal: abortController.signal,
             headers: {
               "Authorization": "Bearer " + user.accessToken
@@ -146,7 +148,7 @@ export default function NewItem() {
           navigate("/")
         }
         catch (error) {
-          if(error?.code === "ERR_CANCELED") {
+          if (error?.code === "ERR_CANCELED") {
             return
           }
           setIsAddingProductLoading(false)
@@ -174,7 +176,8 @@ export default function NewItem() {
         <h2>Product image</h2>
         <input type="file" accept="image/*" name="image" onChange={(e) => {
           fileReader.readAsDataURL(e.target.files[0])
-          fileReader.onload = (e) => setProductImage(e.target.result)}} />
+          fileReader.onload = (e) => setProductImage(e.target.result)
+        }} />
         {
           productImage &&
           <div>
@@ -185,27 +188,31 @@ export default function NewItem() {
       <div>
         <h2>Product name</h2>
         <input type="text" value={productName} name="name" onChange={(e) => {
-          setProductName(prev => e.target.value.length > 50 ? prev : e.target.value)}} required />
+          setProductName(prev => e.target.value.length > 50 ? prev : e.target.value)
+        }} required />
       </div>
       <div>
         <h2>Product type</h2>
         <select value={productType} name="type" onChange={(e) => {
           clearAllSpecs();
-          setProductType(e.target.value)}} >
-            {productTypes.map((v) => <option key={v} value={v}>{v}</option>)}
+          setProductType(e.target.value)
+        }} >
+          {productTypes.map((v) => <option key={v} value={v}>{v}</option>)}
         </select>
       </div>
       <div>
         <h2>Product brand</h2>
         <select value={productBrand} name="brand" onChange={(e) => {
-          setProductBrand(e.target.value)}}>
-            {productBrands.map((v) => <option key={v} value={v}>{v}</option>)}
+          setProductBrand(e.target.value)
+        }}>
+          {productBrands.map((v) => <option key={v} value={v}>{v}</option>)}
         </select>
       </div>
       <div>
         <h2>Product price ($)</h2>
         <input type="number" value={productPrice} name="price" onChange={e => {
-          setProductPrice(e.target.value > 99999 ? 99999 : e.target.value < 0 ? 0 : e.target.value)}} required />
+          setProductPrice(e.target.value > 99999 ? 99999 : e.target.value < 0 ? 0 : e.target.value)
+        }} required />
       </div>
       <div>
         <h2>Quantity: </h2>
@@ -220,11 +227,11 @@ export default function NewItem() {
               value={v.key} disabled />
             {
               v.inputType !== "checkbox" ?
-              <input type={v.inputType} name={v.key} value={getSpecsState()[v.key]}
-                onChange={(e) => { (getSpecsSetState())((prev) => { return { ...prev, [e.target.name]: e.target.value.length > 50 ? prev[e.target.name] : e.target.value} }) }} 
-                placeholder="Input specification value..." required /> :
-              <input type={v.inputType} name={v.key} checked={getSpecsState()[v.key]}
-                onChange={(e) => { (getSpecsSetState())((prev) => { return { ...prev, [e.target.name]: !prev[e.target.name] } }) }} />
+                <input type={v.inputType} name={v.key} value={getSpecsState()[v.key]}
+                  onChange={(e) => { (getSpecsSetState())((prev) => { return { ...prev, [e.target.name]: e.target.value.length > 50 ? prev[e.target.name] : e.target.value } }) }}
+                  placeholder="Input specification value..." required /> :
+                <input type={v.inputType} name={v.key} checked={getSpecsState()[v.key]}
+                  onChange={(e) => { (getSpecsSetState())((prev) => { return { ...prev, [e.target.name]: !prev[e.target.name] } }) }} />
             }
           </div>
           )

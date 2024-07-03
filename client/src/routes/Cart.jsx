@@ -21,22 +21,22 @@ export default function Cart() {
   const [recipientData, setRecipientData] = useState({ firstName: "", lastName: "", email: "", phone: "", address: "", city: "", zip: "", country: "" })
 
   useEffect(() => {
-    const abortController = new AbortController()
     if (isLoading) {
+      const abortController = new AbortController()
       const retrieveProducts = async () => {
         try {
           let data = null
           try {
             data = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
-            if(!Array.isArray(data)) {
+            if (!Array.isArray(data)) {
               throw new Error()
             }
           }
-          catch(error) {
+          catch (error) {
             data = []
             localStorage.setItem("cart", JSON.stringify(data))
           }
-          const response = await axiosInstance.post("/server/db_queries/products_fetch.php", 
+          const response = await axiosInstance.post("/server/db_queries/products_fetch.php",
             JSON.stringify({ ids: data.map((v) => v.id), searchType: "ids" }),
             { signal: abortController.signal }
           )
@@ -46,7 +46,7 @@ export default function Cart() {
           setCartItemCount(JSON.parse(localStorage.getItem("cart")).length)
         }
         catch (error) {
-          if(error?.code === "ERR_CANCELED") {
+          if (error?.code === "ERR_CANCELED") {
             return
           }
           setIsLoading(false)
@@ -59,8 +59,8 @@ export default function Cart() {
   }, [isLoading])
 
   useEffect(() => {
-    const abortController = new AbortController()
     if (isBuying) {
+      const abortController = new AbortController()
       const placeOrder = async () => {
         if (user.role === roles.guest) {
           try {
@@ -70,17 +70,17 @@ export default function Cart() {
               products: products.map((v) => { return { id: v.id, quantity: v.amount } }),
               orderDate: new Date().toString(),
             }
-            const response = await axiosInstance.post("/server/db_queries/transaction_insert.php", JSON.stringify(data),  {
+            const response = await axiosInstance.post("/server/db_queries/transaction_insert.php", JSON.stringify(data), {
               signal: abortController.signal
             })
             setIsBuying(false)
-            if(response.data?.status === "deleted") {
+            if (response.data?.status === "deleted") {
               alert("Certain item(s) inside cart have been deleted, cart will be refreshed")
               setIsSecondPageOpened(false)
               setIsLoading(true)
               return
             }
-            else if(response.data?.status === "exceeded") {
+            else if (response.data?.status === "exceeded") {
               alert("Requested amount of certain item(s) inside cart is currently not available")
               return
             }
@@ -90,7 +90,7 @@ export default function Cart() {
             navigate("/")
           }
           catch (error) {
-            if(error?.code === "ERR_CANCELED") {
+            if (error?.code === "ERR_CANCELED") {
               return
             }
             setIsBuying(false)
@@ -112,13 +112,13 @@ export default function Cart() {
               signal: abortController.signal
             })
             setIsBuying(false)
-            if(response.data?.status === "deleted") {
+            if (response.data?.status === "deleted") {
               alert("Certain item(s) inside cart have been deleted, cart will be refreshed")
               setIsSecondPageOpened(false)
               setIsLoading(true)
               return
             }
-            else if(response.data?.status === "exceeded") {
+            else if (response.data?.status === "exceeded") {
               alert("Requested amount of certain item(s) inside cart is currently not available")
               return
             }
@@ -128,7 +128,7 @@ export default function Cart() {
             navigate("/")
           }
           catch (error) {
-            if(error?.code === "ERR_CANCELED") {
+            if (error?.code === "ERR_CANCELED") {
               return
             }
             setIsBuying(false)
@@ -155,13 +155,13 @@ export default function Cart() {
     let storageData = null
     try {
       storageData = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
-      if(!Array.isArray(storageData)) {
+      if (!Array.isArray(storageData)) {
         throw new Error()
       }
       localStorage.setItem("cart", JSON.stringify(storageData.filter(v => v.id !== productId)))
       setProducts((prev) => prev.filter((v) => v.id !== productId))
     }
-    catch(error) {
+    catch (error) {
       storageData = []
       localStorage.setItem("cart", JSON.stringify(storageData))
       setProducts([])
@@ -174,25 +174,25 @@ export default function Cart() {
       {
         !isSecondPageOpened ?
           isLoading ? <Loading /> :
-          <div>
-            {
-              products.length === 0 ? <h1 id="cart__empty">No items</h1> :
-              <div>
-                <div id="cart-items">
-                  {
-                    products.map((v) => <Fragment key={v.id}>
-                      <CartItem setCartItemCount={setCartItemCount} imageSource={v.image_path} name={v.product_name} price={v.price} quantity={v.amount}
-                        removeProduct={() => removeProduct(v.id)} />
-                    </Fragment>)
-                  }
-                </div>
-                <div id="cart__buttons">
-                  <button onClick={() => navigate("/")}>Cancel</button>
-                  <button onClick={() => setIsSecondPageOpened(true)}>Next</button>
-                </div>
-              </div>
-            }
-          </div> :  
+            <div>
+              {
+                products.length === 0 ? <h1 id="cart__empty">No items</h1> :
+                  <div>
+                    <div id="cart-items">
+                      {
+                        products.map((v) => <Fragment key={v.id}>
+                          <CartItem setCartItemCount={setCartItemCount} imageSource={v.image_path} name={v.product_name} price={v.price} quantity={v.amount}
+                            removeProduct={() => removeProduct(v.id)} />
+                        </Fragment>)
+                      }
+                    </div>
+                    <div id="cart__buttons">
+                      <button onClick={() => navigate("/")}>Cancel</button>
+                      <button onClick={() => setIsSecondPageOpened(true)}>Next</button>
+                    </div>
+                  </div>
+              }
+            </div> :
           <form onSubmit={(e) => { e.preventDefault(); setIsBuying(true) }}>
             <div id="cart__recipient-data">
               <div>

@@ -16,7 +16,7 @@ const useLogout = () => {
         if (localStorage.getItem("cookie_agreement") === "accepted") {
           await axiosInstance.post("/server/db_queries/credentials/delete_refresh_token.php", {
             signal: abortController.signal,
-            withCredentials: true 
+            withCredentials: true
           })
         }
         setUser({ id: "", role: roles.guest, accessToken: "" })
@@ -24,13 +24,13 @@ const useLogout = () => {
         return "success"
       }
       catch (error) {
-        if(error?.code === "ERR_CANCELED") {
+        if (error?.code === "ERR_CANCELED") {
         }
         alert(error)
       }
     }
     channel.onmessage = () => {
-      if(logout() === "success"){
+      if (logout() === "success") {
         channel.close()
       }
     }

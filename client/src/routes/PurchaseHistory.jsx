@@ -16,8 +16,8 @@ export default function PurchaseHistory() {
   const [result, setResult] = useState([])
 
   useEffect(() => {
-    const abortController = new AbortController()
     if (isLoading) {
+      const abortController = new AbortController()
       const fetchOrders = async () => {
         try {
           const response = await interceptedInstance.post("/server/db_queries/transactions_fetch.php", JSON.stringify({ id: user.id, role: user.role }), {
@@ -53,14 +53,14 @@ export default function PurchaseHistory() {
     <>
       {
         isLoading ? <Loading /> :
-        <div id="purchase-history">
-          {
-            result.length === 0 ? <div id="purchase-history__no-result"><h1>No results</h1></div> : result.map((v) =>
-              <Fragment key={v.id}>
-                <PurchaseHistoryItem price={v.price * v.amount} name={v.product_name} quantity={v.amount} date={v.order_date} />
-              </Fragment>)
-          }
-        </div>
+          <div id="purchase-history">
+            {
+              result.length === 0 ? <div id="purchase-history__no-result"><h1>No results</h1></div> : result.map((v) =>
+                <Fragment key={v.id}>
+                  <PurchaseHistoryItem price={v.price * v.amount} name={v.product_name} quantity={v.amount} date={v.order_date} />
+                </Fragment>)
+            }
+          </div>
       }
     </>
   )

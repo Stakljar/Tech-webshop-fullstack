@@ -10,8 +10,8 @@ export default function Validate() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const abortController = new AbortController()
     if (isLoading) {
+      const abortController = new AbortController()
       const refresh = async () => {
         try {
           const response = await axiosInstance.get("/server/db_queries/credentials/validate.php", {
@@ -22,7 +22,7 @@ export default function Validate() {
           setUser({ id: response.data.id, role: response.data.role, accessToken: response.data.access_token })
         }
         catch (error) {
-          if(error?.code === "ERR_CANCELED") {
+          if (error?.code === "ERR_CANCELED") {
             return
           }
           setIsLoading(false)

@@ -30,9 +30,9 @@ const useRefreshIntercept = () => {
             try {
               const response = await axiosInstance.get("/server/db_queries/credentials/validate.php", {
                 signal: abortController.signal,
-                withCredentials: true 
+                withCredentials: true
               })
-              if(response.data.role === user.role && response.data.id === user.id) {
+              if (response.data.role === user.role && response.data.id === user.id) {
                 setUser({ id: response.data.id, role: response.data.role, accessToken: response.data.access_token })
               }
               originalRequest.headers["Authorization"] = `Bearer ${response.data.access_token}`

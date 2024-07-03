@@ -17,8 +17,8 @@ export default function Browse() {
   const [isFiltered, setIsFiltered] = useState(true)
 
   useEffect(() => {
-    const abortController = new AbortController()
     if (!isFiltered) {
+      const abortController = new AbortController()
       const data = {
         name: searchName,
         filterData: {
@@ -30,16 +30,16 @@ export default function Browse() {
       }
       const filter = async () => {
         try {
-          const response = await axiosInstance.post("/server/db_queries/products_fetch.php", 
+          const response = await axiosInstance.post("/server/db_queries/products_fetch.php",
             JSON.stringify({ ...data, searchType: "filter" }),
             {
               signal: abortController.signal
-          })
+            })
           setIsFiltered(true)
           setResult(response.data)
         }
         catch (error) {
-          if(error?.code === "ERR_CANCELED") {
+          if (error?.code === "ERR_CANCELED") {
             return
           }
           setIsFiltered(true)
@@ -52,20 +52,20 @@ export default function Browse() {
   }, [isFiltered])
 
   useEffect(() => {
-    const abortController = new AbortController()
     if (!isSearched) {
+      const abortController = new AbortController()
       const search = async () => {
         try {
-          const response = await axiosInstance.post("/server/db_queries/products_fetch.php", 
+          const response = await axiosInstance.post("/server/db_queries/products_fetch.php",
             JSON.stringify({ name: searchName, searchType: "name" }),
             {
               signal: abortController.signal
-          })
+            })
           setIsSearched(true)
           setResult(response.data)
         }
         catch (error) {
-          if(error?.code === "ERR_CANCELED") {
+          if (error?.code === "ERR_CANCELED") {
             return
           }
           setIsSearched(true)
@@ -97,9 +97,9 @@ export default function Browse() {
                 user.role === roles.employee ?
                   result.map((v) =>
                     <Fragment key={v.id}><ModifyShopItem id={v.id} imageUrl={v.image_path} name={v.product_name} type={v.product_type}
-                      brand={v.brand} specs={convertObjectToList(JSON.parse(v.specifications))} price={v.price} quantity={v.current_amount} 
-                      removeProduct={() => setResult((prev) => prev.filter((value) => value.id !== v.id))}/></Fragment>) :
-                  result.map((v) => 
+                      brand={v.brand} specs={convertObjectToList(JSON.parse(v.specifications))} price={v.price} quantity={v.current_amount}
+                      removeProduct={() => setResult((prev) => prev.filter((value) => value.id !== v.id))} /></Fragment>) :
+                  result.map((v) =>
                     <Fragment key={v.id}><ShopItem id={v.id} imageUrl={v.image_path} name={v.product_name} price={v.price} /></Fragment>) :
                 <div className="browse__shop-items__no-result"><h1>No results</h1></div>
           }

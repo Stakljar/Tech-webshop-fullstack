@@ -32,13 +32,13 @@ export default function MainLayout() {
   }, [])
 
   useEffect(() => {
-    const abortController = new AbortController()
     if (isPasswordChangeLoading) {
+      const abortController = new AbortController()
       setErrorText("")
       const changePassword = async () => {
         try {
           const response = await interceptedInstance.post("/server/db_queries/credentials/change_password.php",
-           JSON.stringify({ password: passwords.new, id: user.id, role: user.role }),
+            JSON.stringify({ password: passwords.new, id: user.id, role: user.role }),
             { signal: abortController.signal }
           )
           setIsPasswordChangeLoading(false)
@@ -47,7 +47,7 @@ export default function MainLayout() {
           navigate(user.role === roles.employee ? "/employee_login" : "/login", { state: { previousLocation: location }, replace: true })
         }
         catch (error) {
-          if(error?.code === "ERR_CANCELED"){
+          if (error?.code === "ERR_CANCELED") {
             return
           }
           setIsPasswordChangeLoading(false)

@@ -1,7 +1,6 @@
 import "../styles/CartItem.css"
 
 export default function CartItem(props) {
-
   return (
     <div className="cart-item">
       <img src={props.imageSource} alt="Missing" />
