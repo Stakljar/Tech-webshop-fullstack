@@ -3,7 +3,7 @@ import "../styles/Order.css"
 import useRefreshIntercept from "../hooks/useRefreshIntercept"
 import { AuthContext } from "../App"
 import { useLocation, useNavigate } from "react-router-dom"
-import { roles } from "../utils/utils"
+import { roles } from "../data/data"
 
 export default function Order(props) {
   const { user, setUser } = useContext(AuthContext)

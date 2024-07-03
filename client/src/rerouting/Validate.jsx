@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../App"
 import { Outlet } from "react-router-dom"
-import { roles } from "../utils/utils"
+import { roles } from "../data/data"
 import Loading from "../util_components/Loading"
 import axiosInstance from "../axios/axiosInstance"
 

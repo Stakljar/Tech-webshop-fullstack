@@ -5,7 +5,7 @@ import useRefreshIntercept from "../hooks/useRefreshIntercept"
 import { useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../App"
 import Loading from "../util_components/Loading"
-import { roles } from "../utils/utils"
+import { roles } from "../data/data"
 
 export default function PurchaseHistory() {
   const { user, setUser } = useContext(AuthContext)

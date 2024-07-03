@@ -1,7 +1,7 @@
 import "../styles/ShopItemDetails.css"
 import QuantityInput from "../util_components/QuantityInput"
 import { AuthContext, CartCountContext } from "../App"
-import { roles } from "../utils/utils"
+import { roles } from "../data/data"
 import { useEffect, useState, useContext } from "react"
 import axiosInstance from "../axios/axiosInstance"
 import { useNavigate, useParams } from "react-router-dom"

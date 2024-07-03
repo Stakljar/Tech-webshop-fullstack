@@ -1,7 +1,7 @@
 import "../styles/NewItem.css"
 import { useContext, useEffect, useState } from "react"
 import QuantityInput from "../util_components/QuantityInput"
-import { productTypes, productBrands, roles } from "../utils/utils"
+import { productTypes, productBrands, roles } from "../data/data"
 import { useLocation, useNavigate } from "react-router-dom"
 import useRefreshIntercept from "../hooks/useRefreshIntercept"
 import { AuthContext } from "../App"

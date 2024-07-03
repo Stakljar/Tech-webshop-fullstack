@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { AuthContext } from "../App"
 import { Navigate } from "react-router-dom"
-import { roles } from "../utils/utils"
+import { roles } from "../data/data"
 
 export default function ProtectedRoute({ permittedRoles, children }) {
   const currentUser = useContext(AuthContext)

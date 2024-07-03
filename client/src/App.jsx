@@ -8,7 +8,7 @@ import Cart from "./routes/Cart";
 import NewItem from "./routes/NewItem"
 import Error from "./rerouting/error/Error";
 import { createContext, useState } from "react";
-import { authType, roles } from "./utils/utils";
+import { authType, roles } from "./data/data";
 import ProtectedRoute from "./rerouting/ProtectedRoute";
 import ReactModal from "react-modal";
 import Validate from "./rerouting/Validate";
@@ -19,7 +19,7 @@ import Orders from "./routes/Orders";
 export const AuthContext = createContext(null)
 export const CartCountContext = createContext(null)
 
-function App() {
+export default function App() {
   const [user, setUser] = useState({ id: "", role: roles.guest, accessToken: "" })
   try {
     if(localStorage.getItem("cart")) {
@@ -93,5 +93,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

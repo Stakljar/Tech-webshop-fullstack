@@ -1,5 +1,5 @@
 import "../styles/Filter.css"
-import { productBrands, productTypes } from "../utils/utils"
+import { productBrands, productTypes } from "../data/data"
 
 export default function Filter(props) {
   return (

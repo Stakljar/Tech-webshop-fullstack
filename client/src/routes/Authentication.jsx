@@ -1,7 +1,7 @@
 import "../styles/Authentication.css"
 import { useState, useEffect, useContext } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import { authType, roles } from "../utils/utils"
+import { authType, roles } from "../data/data"
 import { AuthContext } from "../App"
 import axiosInstance from "../axios/axiosInstance"
 import Loading from "../util_components/Loading"
