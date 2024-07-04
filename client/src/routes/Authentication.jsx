@@ -25,7 +25,6 @@ export default function Authentication(props) {
             JSON.stringify({ ...credentials, role: props.role, cookieAgreement: localStorage.getItem("cookie_agreement") }),
             {
               signal: abortController.signal,
-              withCredentials: localStorage.getItem("cookie_agreement") === "accepted" ? true : false
             })
           setIsLoading(false)
           if (response.data?.status === "invalid") {
@@ -51,7 +50,6 @@ export default function Authentication(props) {
             JSON.stringify({ ...credentials, cookieAgreement: localStorage.getItem("cookie_agreement") }),
             {
               signal: abortController.signal,
-              withCredentials: localStorage.getItem("cookie_agreement") === "accepted" ? true : false
             })
           setIsLoading(false)
           if (response.data?.status === "valid") {
