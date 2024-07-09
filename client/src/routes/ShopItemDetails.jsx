@@ -28,7 +28,10 @@ export default function ShopItemDetails() {
       const abortController = new AbortController()
       const loadProduct = async () => {
         try {
-          const response = await axiosInstance.post("server/db_queries/product_fetch.php", JSON.stringify({ id: productId }), {
+          const response = await axiosInstance.get("server/db_queries/product_fetch.php", {
+            params: {
+              id: productId,
+            },
             signal: abortController.signal
           })
           setIsLoading(false)

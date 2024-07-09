@@ -1,6 +1,6 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] !== "POST"){
-        echo "POST method required.";
+    if($_SERVER["REQUEST_METHOD"] !== "GET"){
+        echo "GET method required.";
         exit;
     }
 
@@ -10,9 +10,7 @@
     require "../jwt/jwt.php";
     require "../utils/get_image_encoded_path.php";
 
-    $request = file_get_contents("php://input");
-    $data = json_decode($request, true);
-
+    $data = $_GET;
     $connection = getDBConnection();
     $statement = $connection->prepare("SELECT * FROM $product_table_name WHERE id = ?");
     $statement->bind_param("s", $data["id"]);

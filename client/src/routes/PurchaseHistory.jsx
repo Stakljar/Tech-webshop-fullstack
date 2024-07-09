@@ -20,8 +20,15 @@ export default function PurchaseHistory() {
       const abortController = new AbortController()
       const fetchOrders = async () => {
         try {
-          const response = await interceptedInstance.post("/server/db_queries/transactions_fetch.php", JSON.stringify({ id: user.id, role: user.role }), {
-            signal: abortController.signal
+          const response = await interceptedInstance.get("/server/db_queries/transactions_fetch.php", {
+            params: {
+              id: user.id,
+              role: user.role,
+            },
+            signal: abortController.signal,
+            headers: {
+              "Authorization": "Bearer " + user.accessToken
+            }
           })
           setIsLoading(false)
           setResult(response.data)

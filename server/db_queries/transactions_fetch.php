@@ -1,6 +1,6 @@
 <?php
-    if($_SERVER["REQUEST_METHOD"] !== "POST"){
-        echo "POST method required.";
+    if($_SERVER["REQUEST_METHOD"] !== "GET"){
+        echo "GET method required.";
         exit;
     }
 
@@ -9,9 +9,7 @@
     require "../utils/db_components.php";
     require "../jwt/jwt.php";
 
-    $request = file_get_contents("php://input");
-    $data = json_decode($request, true);
-
+    $data = $_GET;
     $requestHeaders = apache_request_headers();
     list(, $token) = explode(" ", $requestHeaders["Authorization"]);
     performValidationProcess($token, $data["id"], $data["role"]);
