@@ -32,9 +32,7 @@ const useRefreshIntercept = () => {
                 signal: abortController.signal,
                 withCredentials: true
               })
-              if (response.data.role === user.role && response.data.id === user.id) {
-                setUser({ id: response.data.id, role: response.data.role, accessToken: response.data.access_token })
-              }
+              setUser({ id: response.data.id, role: response.data.role, accessToken: response.data.access_token })
               originalRequest.headers["Authorization"] = `Bearer ${response.data.access_token}`
               return interceptedInstance(originalRequest)
             }
