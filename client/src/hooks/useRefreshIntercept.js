@@ -10,8 +10,8 @@ const useRefreshIntercept = () => {
     const abortController = new AbortController()
     const requestInterceptor = interceptedInstance.interceptors.request.use(
       config => {
-        if (!config.headers['Authorization']) {
-          config.headers['Authorization'] = 'Bearer ' + user.accessToken
+        if (!config.headers["Authorization"]) {
+          config.headers["Authorization"] = "Bearer " + user.accessToken
         }
         return config
       },
