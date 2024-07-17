@@ -10,32 +10,33 @@ export default function Validate() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    if (isLoading) {
-      const abortController = new AbortController()
-      const refresh = async () => {
-        try {
-          const response = await axiosInstance.get("/server/db_queries/credentials/validate.php", {
-            signal: abortController.signal,
-            withCredentials: true
-          })
-          setIsLoading(false)
-          setUser({ id: response.data.id, role: response.data.role, accessToken: response.data.access_token })
-        }
-        catch (error) {
-          if (error?.code === "ERR_CANCELED") {
-            return
-          }
-          setIsLoading(false)
-          alert(error)
-        }
-      }
-      if (localStorage.getItem("cookie_agreement") === "accepted") {
-        refresh()
-      }
-      else {
-        setUser({ id: "", role: roles.guest, accessToken: "" })
+    if (!isLoading) {
+      return
+    }
+    const abortController = new AbortController()
+    const refresh = async () => {
+      try {
+        const response = await axiosInstance.get("/server/db_queries/credentials/validate.php", {
+          signal: abortController.signal,
+          withCredentials: true
+        })
         setIsLoading(false)
+        setUser({ id: response.data.id, role: response.data.role, accessToken: response.data.access_token })
       }
+      catch (error) {
+        if (error?.code === "ERR_CANCELED") {
+          return
+        }
+        setIsLoading(false)
+        alert(error)
+      }
+    }
+    if (localStorage.getItem("cookie_agreement") === "accepted") {
+      refresh()
+    }
+    else {
+      setUser({ id: "", role: roles.guest, accessToken: "" })
+      setIsLoading(false)
     }
     return () => abortController.abort()
   }, [])
