@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react"
-import axiosInstance from "../axios/axiosInstance"
+import axiosInstance, {interceptInstance} from "../axios/axiosInstance"
 import { AuthContext } from "../App"
 
 const useRefreshIntercept = () => {
-  const interceptedInstance = axiosInstance
+  const interceptedInstance = interceptInstance
   const { user, setUser } = useContext(AuthContext)
 
   useEffect(() => {
