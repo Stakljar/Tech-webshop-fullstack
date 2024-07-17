@@ -47,7 +47,7 @@
         $response["id"] = $data["username"];
         $response["role"] = $data["role"];
         if($data["cookieAgreement"] === "accepted"){
-            setcookie("refresh_token", generateRefreshJWT($data["username"], $data["role"]), httponly: true);
+            setcookie("refresh_token", generateRefreshJWT($data["username"], $data["role"]), secure: true, httponly: true);
         }
     }
     else{
