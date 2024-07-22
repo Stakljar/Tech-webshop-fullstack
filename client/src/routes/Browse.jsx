@@ -6,7 +6,7 @@ import { convertObjectToList, productBrands, productTypes, roles } from "../data
 import { AuthContext } from "../App"
 import ShopItem from "../items/ShopItem"
 import Loading from "../util_components/Loading"
-import axiosInstance from "../axios/axiosInstance"
+import axiosInstance from "../axios/axiosInstances"
 
 export default function Browse() {
   const { user } = useContext(AuthContext)

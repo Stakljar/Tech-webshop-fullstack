@@ -3,7 +3,7 @@ import { AuthContext } from "../App"
 import { Outlet } from "react-router-dom"
 import { roles } from "../data/data"
 import Loading from "../util_components/Loading"
-import axiosInstance from "../axios/axiosInstance"
+import axiosInstance from "../axios/axiosInstances"
 
 export default function Validate() {
   const { setUser } = useContext(AuthContext)

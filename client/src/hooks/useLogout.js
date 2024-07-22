@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react"
 import { AuthContext } from "../App"
-import axiosInstance from "../axios/axiosInstance"
+import axiosInstance from "../axios/axiosInstances"
 import { useNavigate } from "react-router-dom"
 import { roles } from "../data/data"
 
@@ -21,7 +21,6 @@ const useLogout = () => {
         }
         setUser({ id: "", role: roles.guest, accessToken: "" })
         navigate("/")
-        return "success"
       }
       catch (error) {
         if (error?.code === "ERR_CANCELED") {
@@ -31,9 +30,8 @@ const useLogout = () => {
       }
     }
     channel.onmessage = () => {
-      if (logout() === "success") {
-        channel.close()
-      }
+      logout()
+      channel.close()
     }
 
     return () => abortController.abort()

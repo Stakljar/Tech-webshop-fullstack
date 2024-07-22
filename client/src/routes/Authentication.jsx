@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { authType, roles } from "../data/data"
 import { AuthContext } from "../App"
-import axiosInstance from "../axios/axiosInstance"
+import axiosInstance from "../axios/axiosInstances"
 import Loading from "../util_components/Loading"
 
 export default function Authentication(props) {
