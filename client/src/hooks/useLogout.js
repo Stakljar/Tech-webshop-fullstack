@@ -25,6 +25,7 @@ const useLogout = () => {
       }
       catch (error) {
         if (error?.code === "ERR_CANCELED") {
+          return
         }
         alert(error)
       }
