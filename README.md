@@ -1,4 +1,4 @@
-# Tech-webshop
+# Tech-webshop-fullstack
 Webshop project made using React and PHP.
 ## How to run
 Clone the repository:
