@@ -37,7 +37,7 @@ export default function MainLayout() {
       setErrorText("")
       const changePassword = async () => {
         try {
-          const response = await interceptedInstance.post("/server/db_queries/credentials/change_password.php",
+          await interceptedInstance.post("/server/db_queries/credentials/change_password.php",
             JSON.stringify({ password: passwords.new, id: user.id, role: user.role }),
             { signal: abortController.signal }
           )
