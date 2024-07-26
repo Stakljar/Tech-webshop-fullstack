@@ -1,13 +1,26 @@
 # Tech-webshop-fullstack
-Webshop project made using React, PHP and MySQL.
+Webshop project made using React, PHP and MySQL/MariaDB.
 ## How to run
 Clone the repository:
 ```cmd
 git clone https://github.com/Stakljar/Tech-webshop.git
 ```
-To run application you will need to start backend server on port 3000, MySQL server on port 3306 and client server on port other than 3000 and 3306.<br>
-For starting MySQL server you will need to use parameters defined in connection.php file which is located inside /server/db_conn directory and to setup database you will need to execute sql file that is located inside db directory called tech_webshop.sql.<br>
-After that navigate to the client directory and execute following commands:
+To run the application you will need to start backend server on port 3000, MySQL server on port 3306 and client server on port other than 3000 and 3306.<br>
+For starting MySQL server you will need to use parameters defined in connection.php file which is located inside server/db_conn directory and to setup database you will need to execute sql file that is located inside db directory called tech_webshop.sql.<br>
+
+Steps for database setup when using XAMPP:
+- Download and install XAMPP from: https://www.apachefriends.org/download.html
+- Open XAMPP Control Panel and enable Apache and MySQL
+- Params for MySQL/MariaDB server will be automatically set to the ones specified in connection.php
+- Click on Admin in MySQL section
+- In phpMyAdmin on database list click on "New"
+- Click on Import -> Choose File and select tech_webshop.php
+- After that click on Import
+
+For starting PHP server you can use VSCode extension PHP Server by brapifra.
+After installing extension right click on any PHP file and select PHP Server: Serve project.
+
+For the client, navigate to the client directory and execute following commands:
 ```cmd
 npm install -f
 npm start
