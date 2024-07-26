@@ -9,7 +9,7 @@ To run the application you will need to start backend server on port 3000, MySQL
 For starting MySQL server you will need to use parameters defined in connection.php file which is located inside server/db_conn directory and to setup database you will need to execute sql file that is located inside db directory called tech_webshop.sql.<br>
 
 Steps for database setup when using XAMPP:
-1. Download and install XAMPP from: https://www.apachefriends.org/download.html
+1. Download and run XAMPP installer from: https://www.apachefriends.org/download.html
 2. Open XAMPP Control Panel and enable Apache and MySQL
 3. Params for MySQL/MariaDB server will be automatically set to the ones specified in connection.php
 4. Click on Admin in MySQL section
