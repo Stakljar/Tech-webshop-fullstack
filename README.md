@@ -9,13 +9,13 @@ To run the application you will need to start backend server on port 3000, MySQL
 For starting MySQL server you will need to use parameters defined in connection.php file which is located inside server/db_conn directory and to setup database you will need to execute sql file that is located inside db directory called tech_webshop.sql.<br>
 
 Steps for database setup when using XAMPP:
-- Download and install XAMPP from: https://www.apachefriends.org/download.html
-- Open XAMPP Control Panel and enable Apache and MySQL
-- Params for MySQL/MariaDB server will be automatically set to the ones specified in connection.php
-- Click on Admin in MySQL section
-- In phpMyAdmin on database list click on "New"
-- Click on Import -> Choose File and select tech_webshop.php
-- After that click on Import
+1. Download and install XAMPP from: https://www.apachefriends.org/download.html
+2. Open XAMPP Control Panel and enable Apache and MySQL
+3. Params for MySQL/MariaDB server will be automatically set to the ones specified in connection.php
+4. Click on Admin in MySQL section
+5. In phpMyAdmin on database list click on "New"
+6. Click on Import -> Choose File and select tech_webshop.php
+7. After that click on Import
 
 For starting PHP server you can use VSCode extension PHP Server by brapifra.
 After installing extension right click on any PHP file and select PHP Server: Serve project.
