@@ -11,16 +11,16 @@ For starting MySQL server you will need to use parameters defined in connection.
 Steps for database setup when using XAMPP:
 1. Download and run XAMPP installer from: https://www.apachefriends.org/download.html
 2. Open XAMPP Control Panel and enable Apache and MySQL
-3. Params for MySQL/MariaDB server will be automatically set to the ones specified in connection.php
+3. Params for MySQL/MariaDB server will be automatically set to the ones specified in _connection.php_
 4. Click on Admin in MySQL section
 5. In phpMyAdmin on database list click on "New"
-6. Click on Import -> Choose File and select tech_webshop.php
+6. Click on Import -> Choose File and select _tech_webshop.php_
 7. After that click on Import
 
 For starting PHP server you can use VSCode extension PHP Server by brapifra.
 After installing extension right click on any PHP file and select PHP Server: Serve project.
 
-For the client, navigate to the client directory and execute following commands:
+For the client, navigate to the _client_ directory and execute following commands:
 ```cmd
 npm install -f
 npm start
