@@ -1,5 +1,5 @@
 # Tech-webshop-fullstack
-Webshop project made using React, PHP and MySQL/MariaDB.
+Webshop project made using ReactJS, PHP and MySQL/MariaDB.
 ## How to run
 Clone the repository:
 ```cmd
